@@ -2,10 +2,11 @@ body{
     background-color: white;
     font-family: 'Courier New', Courier, monospace;
 }
-
+/*
 header{
     
-}
+}*/
+
 .logo_img{
     width:50%;
 }
@@ -15,8 +16,8 @@ input, button{
     color: white;
     padding: 14px 28px;
     font-size: 16px;
- /*   cursor: pointer;*/
 }
+/*
 .recherche{
 
 }
@@ -35,4 +36,4 @@ input, button{
 
 .recipes{
     
-}
+}*/
