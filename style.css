@@ -6,6 +6,10 @@ body{
 header{
     
 }*/
+.flex_box{
+    display: flex;
+    flex-flow: column wrap;
+}
 
 .logo_img{
     width:50%;
