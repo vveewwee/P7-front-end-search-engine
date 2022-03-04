@@ -31,23 +31,20 @@
         </section>
         <section>
             <div class="container-fluid row filters filters">
-                <div class="col bg-primary text-white"> 
-                    <button id="ingredients_btn" class="bg-primary">
-                        <label for="ingredients"></label>
-                        <input  class="bg-primary" name="ingredients" id="ingredients" value="Ingredients"/>
-                    </button>
+                <div class="col bg-primary text-white" id="ingredients">
+                    <span class="bg-primary ingredients" value="ingredients" onclick="change()">Ingredients</span>
                 </div>
                 <div class="col bg-success text-white">
-                    <button id="appliances_btn" class="bg-success">
+                    <form autocomplete="on">
                         <label for="appliances"></label>
-                        <input class="bg-success" name="appliances" id="appliances" value="Appareils"/>
-                    </button>
+                        <input class="bg-success" name="appliances" id="appliances" value="Appareils" />
+                    </form>
                 </div>
                 <div class="col bg-danger text-white">
-                    <button id="ustensiles_btn"class="bg-danger">
+                    <form autocomplete="on">
                         <label for="ustensiles"></label>
                         <input class="bg-danger" name="ustensiles" id="ustensiles" value="Ustensiles"/>
-                    </button>
+                    </form>
                 </div>
             </div>
         </section>

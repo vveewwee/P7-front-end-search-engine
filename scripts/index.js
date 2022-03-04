@@ -46,13 +46,34 @@ const ustensilesTag = async () => {
 }
 
 /*---- display filter tags ----*/
-let filterIngredientBtn = document.querySelector("#ingredients_btn");
-let filterApplianceBtn = document.querySelector("#appliances_btn");
-let filterUstensilBtn = document.querySelector("#ustensiles_btn");
 
+let filterIngredientDiv = document.querySelector("#ingredients");
+let filterIngredientSpan = document.querySelector(".ingredients");
+
+let filterApplianceDiv = document.querySelector("#appliances");
+let filterUstensilDiv = document.querySelector("#ustensiles");
+
+let newIngredientForm = document.createElement("form");
+newIngredientForm.setAttribute("autocomplete", "on");
+
+let newIngredientInput = document.createElement("input");
+newIngredientInput.className = "bg-primary";
+newIngredientInput.name = "ingredients";
+newIngredientInput.id = "ingredients";
+newIngredientForm.appendChild(newIngredientInput);
+
+function change(){
+    changeSpan;
+
+}
+function changeSpan(){
+    filterIngredientSpan.replaceWith(newIngredientForm);
+};
+
+function
 filterIngredientBtn.onclick = createIngredientList;
-filterApplianceBtn.onclick = createApplianceList;
-filterUstensilBtn.onclick = createUstencilList;
+filterApplianceBtn.onkeypress = createApplianceList;
+filterUstensilBtn.onkeypress = createUstencilList;
 
 function createIngredientList(){
     let displayIngredientDiv = document.createElement("div");
