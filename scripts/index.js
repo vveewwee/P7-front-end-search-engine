@@ -51,7 +51,11 @@ let filterIngredientDiv = document.querySelector("#ingredients");
 let filterIngredientSpan = document.querySelector(".ingredients");
 
 let filterApplianceDiv = document.querySelector("#appliances");
+
 let filterUstensilDiv = document.querySelector("#ustensiles");
+
+
+/*---- create Ingredient Input ---*/
 
 let newIngredientForm = document.createElement("form");
 newIngredientForm.setAttribute("autocomplete", "on");
@@ -62,24 +66,54 @@ newIngredientInput.name = "ingredients";
 newIngredientInput.id = "ingredients";
 newIngredientForm.appendChild(newIngredientInput);
 
-function change(){
-    changeSpan;
+filterIngredientDiv.addEventListener("onclick", change(filterIngredientDiv,newIngredientForm));
 
+/*---- create Appliance Input ---*/
+
+let newApplianceForm = document.createElement("form");
+newApplianceForm.setAttribute("autocomplete", "on");
+
+let newApplianceInput = document.createElement("input");
+newApplianceInput.className = "bg-success";
+newApplianceInput.name = "ingredients";
+newApplianceInput.id = "ingredients";
+newApplianceForm.appendChild(newIngredientInput);
+
+filterApplianceDiv.addEventListener("onclick", change(filterApplianceDiv, newApplianceForm));
+
+/*---- create Ustensil Input ---*/
+
+let newUstensilForm = document.createElement("form");
+newUstensilForm.setAttribute("autocomplete", "on");
+
+let newUstensilInput = document.createElement("input");
+newUstensilInput.className = "bg-danger";
+newUstensilInput.name = "ingredients";
+newUstensilInput.id = "ingredients";
+newUstensilForm.appendChild(newUstensilInput);
+
+filterUstensilDiv.addEventListener("onclick", change(filterUstensilDiv, newUstensilForm));
+
+
+function change(original, replacement){
+    changeSpan(original, replacement);
+    createIngredientList();
 }
-function changeSpan(){
-    filterIngredientSpan.replaceWith(newIngredientForm);
+
+function changeSpan(original, replacement){
+    original.replaceWith(replacement);
 };
 
-function
-filterIngredientBtn.onclick = createIngredientList;
-filterApplianceBtn.onkeypress = createApplianceList;
-filterUstensilBtn.onkeypress = createUstencilList;
+
+//filterIngredientBtn.onclick = createIngredientList;
+filterApplianceDiv.onclick = createApplianceList;
+filterUstensilDiv.onclick = createUstencilList;
 
 function createIngredientList(){
     let displayIngredientDiv = document.createElement("div");
     displayIngredientDiv.className = "container bg-primary flex_box";
     displayIngredientDiv.style.height ="300px";
-    filterIngredientBtn.appendChild(displayIngredientDiv);
+    filterIngredientDiv.appendChild(displayIngredientDiv);
     for(var i = 0; i < ingredientArray.length;i++)
     {
         let ingredientListElement = document.createElement("p");
@@ -92,7 +126,7 @@ function createApplianceList(){
     let displayApplianceDiv = document.createElement("div");
     displayApplianceDiv.className = "container bg-success flex_box";
     displayApplianceDiv.style.height ="250px";
-    filterApplianceBtn.appendChild(displayApplianceDiv);
+    filterApplianceDiv.appendChild(displayApplianceDiv);
     for(var i = 0; i < applianceArray.length;i++)
     {
         let applianceListElement = document.createElement("p");
@@ -106,7 +140,7 @@ function createUstencilList(){
     let displayUstensilDiv = document.createElement("div");
     displayUstensilDiv.className = "container bg-danger flex_box";
     displayUstensilDiv.style.height ="250px";
-    filterUstensilBtn.appendChild(displayUstensilDiv);
+    filterUstensilDiv.appendChild(displayUstensilDiv);
     for(var i = 0; i < ustensilArray.length;i++)
     {
         let ustencilListElement = document.createElement("p");
@@ -158,3 +192,22 @@ function createRecipeDiv(e){
     console.log("end of create recipe");
     return (recipeContainerDiv);
 }
+
+let selectedElements = [];
+
+let insertedValue = document.getElementById("search_input");
+insertedValue.addEventListener("onkeypress", function(event){
+    var newText = insertedValue.value;
+    if (event.keyCode == 13){
+        selectedElements.push(newText);
+    }
+});
+
+let keyWords = document.getElementsByClassName("key_words");
+for (var i = 0; i < selectedElements.length;i++){
+    let keyWordsDiv = document.createElement("div");
+    keyWordsDiv.className("container");
+    keyWords.innerText = selectedElements[i];
+} 
+
+console.log(selectedElements);
