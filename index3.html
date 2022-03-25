@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Les petits plats</title>
+</head>
+
+<body>
+    <header class="container-fluid logo_cont">
+        <img alt="logo" src="assets/logo.png" class="mx-auto d-block logo_img" />
+    </header>
+    <main>
+			<form name="filterForm">
+        <section>
+            <div class="container-fluid row recherche ">
+                <label for="search_input"></label>
+                <input type="search" id="search_input" name="search_input" class="form-control-plaintext bg-light mx-auto d-block text-secondary search_input"
+									placeholder="Recherchez une recette"/>
+                <button class="researchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </section>
+        <section class="container">
+            <div class="key_words">
+            </div>
+        </section>
+        <section>
+            <div class="container-fluid row filters">
+                <div class="col bg-primary text-white filterContainer" id="ingredients">
+                    <label for="ingredientsInput"></label>
+									<input type="text" name="ingredientsFilter" class="inputFilter" placeholder="Ingredients" id="ingredientsInput">
+									<i class="fa-solid fa-angle-down"></i>
+									<div class="container bg-primary flex_box filterOptionsList">
+										Ingredients List
+									</div>
+                </div> 
+                <div class="col bg-success text-white filterContainer" id="appliances">
+									<label for="appliancesInput"></label>
+									<input class="bg-success inputFilter" name="appliancesFilter" id="appliancesInput" placeholder="Appareils" />
+                                    <i class="fa-solid fa-angle-down"></i>
+                                    <div class="container bg-primary flex_box filterOptionsList">
+										Appliances List
+									</div>
+                </div>
+                <div class="col bg-danger text-white filterContainer" id="ustensiles">
+									<label for="ustensilesInput"></label>
+									<input class="bg-danger inputFilter" name="ustensilesFilter" id="ustensilesInput" placeholder="Ustensiles"/>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                    <div class="container bg-primary flex_box filterOptionsList">
+										Ustensiles List
+									</div>
+                </div>
+            </div>
+        </section>
+			</form>
+			<section class="recipes">
+					<!-- javascript-->
+			</section>
+    </main>
+    <script src="./scripts/index.js"></script>
+    <script src="./scripts/factories.js"></script>
+    <script src="./data/recipes.js"></script>
+</body>
+
+</html>
+
+<!--
+    <label for="filters"></label>
+                <select id="ingredients" class="bg-primary">
+                    <option class="filters_ingredients_option"> Ingredients</option>
+                </select>
+                <select id="appareils" class="bg-success">
+                    <option class="filters_appareils_option">Appareils</option>
+                </select>
+                <select id="ustensiles" class="bg-danger">
+                    <option class="filters_ustensiles_option">Ustensiles</option>
+                </select>
+-->

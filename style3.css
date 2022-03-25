@@ -1,0 +1,79 @@
+body{
+    background-color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+/*
+header{
+    
+}*/
+.flex_box{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.logo_img{
+    width:50%;
+}
+
+.inputFilter, .buttonFilter
+{
+    border-style: none;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+}
+
+.researchBtn{
+  position:absolute;
+  right:10px;
+  height:38px;
+  width:38px;
+  border-style: none;
+}
+
+.inputFilter
+{
+	background-color: transparent;
+	outline: none;
+}
+
+.inputFilter::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: white;
+}
+
+.filterOptionsList
+{
+	position: absolute;
+	height: 300px;
+	display: none;
+}
+
+.filterContainer
+{
+	position: relative;
+}
+
+/*
+.recherche{
+
+}
+
+.search_input{
+
+}
+
+.filters{
+
+}
+
+.filters_options{
+
+}
+
+.recipes{
+    
+}*/
