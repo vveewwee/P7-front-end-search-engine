@@ -19,7 +19,7 @@ body{
 
 .research_bar{
     width: 97%;
-    height: 50px;
+    height: 70px;
     margin-left: auto;
     margin-right: auto;
     border-style: none;
@@ -31,18 +31,11 @@ body{
 }
 
 .search_input{
-    height: 50px;
+    height: 70px;
     width: 100%;
+    font-size:1.4rem;
     border-style: none;
     background-color: rgb(233, 233, 230);
-}
-
-.search_btn{
-    position:absolute;
-    right:10px;
-    height: 50px;
-    width: 50px;
-    border-style: none;
 }
 
 .section_key_words{
@@ -60,7 +53,7 @@ body{
     display:flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     margin-left: 1%;
 }
 
@@ -83,7 +76,7 @@ body{
     border-style: none;
     color: white;
     padding: 14px 28px;
-    font-size: 16px;
+    font-size: 1.4rem;
 }
 
 .input_filter{
@@ -108,7 +101,7 @@ body{
     color: white;
     display: grid;
     align-items: start;
-    font-size: 14pt;
+    font-size: 1.4rem;
     font-family: Arial, Helvetica, sans-serif;
     grid-gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
@@ -166,7 +159,7 @@ body{
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
 }
 
 .second_line{
@@ -198,4 +191,9 @@ body{
     padding:10px;
     margin:2%;
     border-radius: 8px;
+    font-size: 1.2rem;
 }
+
+
+/* second version*/
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <title>Les petits plats</title>
+</head>
+<body>
+    <header class="header">
+        <img alt="Les petits plats logo" src="assets/logo.png" class="header_logo" />
+    </header>
+    <main>
+        <form name="filterForm">
+            <section class="section_research">
+                <div class="research_bar">
+                    <label for="search_input"></label>
+                    <input type="search" id="search_input" name="search_input"
+                        class="search_input"
+                        placeholder="Recherchez une recette" 
+                        onkeypress="GetInsertedValue(event)"/>
+                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                </div>
+            </section>
+            <section class="section_key_words">
+                <div class="key_words flex_box">
+                </div>
+            </section>
+            <section class="section_filter">
+                <div class="filters flex_row">
+                    <div class="filter_container blue" id="ingredients" onblur="deactivateIngredientsFilter()" onfocus="activateIngredientsFilter()" onclick="displayElement(this)">
+                        <label for="ingredientsInput"></label>
+                        <input autocomplete="off" type="text" name="ingredientsFilter" class="input_filter" placeholder="Ingredients"
+                            id="ingredientsInput" onkeypress="GetIngredientFilterValue(event)">
+                        <i class="fa-solid fa-angle-down icon"></i>
+                        <div class="filter_options_list ingredient_filter">
+                        </div>
+                    </div>
+                    <div class="filter_container green" id="appliances" onclick="displayElement(this)">
+                        <label for="appliancesInput"></label>
+                        <input autocomplete="off" class="input_filter" name="appliancesFilter" id="appliancesInput"
+                            placeholder="Appareils" onkeyup="GetApplianceFilterValue(event)"/>
+                        <i class="fa-solid fa-angle-down icon"></i>
+                        <div class="filter_options_list appliances_filter">
+                        </div>
+                    </div>
+                    <div class="filter_container red" id="ustensiles" onclick="displayElement(this)">
+                        <label for="ustensilesInput"></label>
+                        <input autocomplete="off" class="input_filter" name="ustensilesFilter" id="ustensilesInput"
+                            placeholder="Ustensiles" onkeypress="GetUstensilFilterValue(event)"/>
+                        <i class="fa-solid fa-angle-down icon"></i>
+                        <div class="filter_options_list ustensiles_filter">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+        <section class="section_recipes">
+            <!-- javascript-->
+        </section>
+    </main>
+    <script src="./scripts/index.js"></script>
+    <!--<script src="./scripts/newIndex.js"></script>-->
+    <script src="./data/recipes.js"></script>
+</body>
+
+</html>
