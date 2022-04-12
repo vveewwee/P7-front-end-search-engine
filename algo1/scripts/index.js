@@ -174,7 +174,8 @@ function populateIngredientList() {
         ingredientListElement.innerText = ingredientArray[i];
         ingredientUListElement.appendChild(ingredientListElement);
         ingredientListElement.onclick = function(){
-            populateTags(this,"blue");
+            populateTags(this, "blue");
+            recipeSearch(this);
         }.bind(ingredientArray[i]);
     }
 }
@@ -195,8 +196,9 @@ function populateAppliancesList() {
         applianceListElement.innerText = applianceArray[i];
         applianceUListElement.appendChild(applianceListElement);
         applianceListElement.onclick = function (){
-            console.log(applianceArray[i]);
-        }
+            populateTags(this, "green");
+            recipeSearch(this);
+        }.bind(applianceArray[i]);
     }
 }
 
@@ -215,6 +217,10 @@ function populateUstensilesList() {
         let ustencilListElement = document.createElement("li");
         ustencilListElement.innerText = ustensilArray[i];
         ustencilUListElement.appendChild(ustencilListElement);
+        ustencilUListElement.onclick = function (){
+            populateTags(this, "red");
+            recipeSearch(this);
+        }.bind(ustensilArray[i]);
     }
 }
 
@@ -246,7 +252,7 @@ function createRecipeDiv(e){
     
     let recipeName = document.createElement("p");
     recipeName.style.fontSize= "1.4rem";
-    recipeName.style.marginRight="10%";
+    recipeName.style.maxWidth = "60%";
     recipeName.innerText = e.name;
     firstLine.appendChild(recipeName);
 
@@ -318,7 +324,7 @@ function GetInsertedValue(e) {
                 ustensilArray.toString().toLowerCase().includes(insertedValue) ||
                 nameArray.toString().toLowerCase().includes(insertedValue) ||
                 preparationArray.toString().toLowerCase().includes(insertedValue)) {
-//              populateTags(insertedValue);
+                populateTags(insertedValue , "gray");
                 document.getElementById("search_input").value = "";
                 recipeSearch(insertedValue);
                 console.log(selectedElements);
@@ -326,9 +332,6 @@ function GetInsertedValue(e) {
             }else{
                 alert("element not included in recipes");
             }
-        }
-        else {
-            console.log(insertedValue);
         }
     }
 }
@@ -492,23 +495,32 @@ function GetUstensilFilterValue(e) {
 /*-------- Create Key Word Tags --------*/
 
 let keyWords = document.querySelector(".key_words");
+let tagArray = [];
 
 function populateTags(elem,color) {
 
     let keyWordsDiv = document.createElement("div");
-    keyWordsDiv.className = "tag_container_div " + color;
+    keyWordsDiv.className =  color+ " tag_container_div";
     let keyWordsTag = document.createElement("p");
     keyWordsTag.style.paddingRight = "4px";
     keyWordsTag.innerText = elem;
-
+    if(!tagArray.includes(elem))
+    {
+        tagArray.push(elem);
+        console.log(tagArray);
+    }
     let removeIcon = document.createElement("i");
     removeIcon.className = "fa-regular fa-circle-xmark fa-lg";
     keyWordsDiv.append(keyWordsTag, removeIcon);
     keyWords.appendChild(keyWordsDiv);
 
-    removeIcon.onclick = function () {
+    removeIcon.onclick = function (e,index) {
+        tagArray.splice(e, index);
+        console.log(index);
         keyWords.removeChild(keyWordsDiv);
+        console.log("clicked " + tagArray);
     };
+    console.log(tagArray);
 }
 
 /*------- Research recipe with ---------*/
@@ -516,7 +528,6 @@ function populateTags(elem,color) {
 function insideIngredients(e, index){
     for(var i =0;i < recipes[index].ingredients.length;i++){
         if (recipes[index].ingredients[i].ingredient.toString().toLowerCase().includes(e.toLowerCase())){
-            alert("ingredient match");
             return 1;
         }
     }
