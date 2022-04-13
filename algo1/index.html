@@ -32,7 +32,7 @@
             </section>
             <section class="section_filter">
                 <div class="filters flex_row">
-                    <div class="filter_container blue" id="ingredients" onclick="displayElement(this)">
+                    <div class="filter_container blue" id="ingredients">
                         <label for="ingredientsInput"></label>
                         <input autocomplete="off" type="text" name="ingredientsFilter" class="input_filter" placeholder="Ingredients"
                             id="ingredientsInput" onkeypress="GetIngredientFilterValue(event)">
@@ -40,15 +40,15 @@
                         <div class="filter_options_list ingredient_filter">
                         </div>
                     </div>
-                    <div class="filter_container green" id="appliances" onclick="displayElement(this)">
+                    <div class="filter_container green" id="appliances">
                         <label for="appliancesInput"></label>
                         <input autocomplete="off" class="input_filter" name="appliancesFilter" id="appliancesInput"
-                            placeholder="Appareils" onkeyup="GetApplianceFilterValue(event)"/>
+                            placeholder="Appareils" onkeyup="GetApplianceFilterValue(event)">
                         <i class="fa-solid fa-angle-down icon"></i>
                         <div class="filter_options_list appliances_filter">
                         </div>
                     </div>
-                    <div class="filter_container red" id="ustensiles" onclick="displayElement(this)">
+                    <div class="filter_container red" id="ustensiles">
                         <label for="ustensilesInput"></label>
                         <input autocomplete="off" class="input_filter" name="ustensilesFilter" id="ustensilesInput"
                             placeholder="Ustensiles" onkeypress="GetUstensilFilterValue(event)"/>

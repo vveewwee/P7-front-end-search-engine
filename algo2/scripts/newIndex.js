@@ -24,6 +24,7 @@ function createIngredientFilter() {
 let appliancesArray = [];
 
 function createApplianceFilter(){
+    let applianceInputValue = document.querySelector("#appliancesInput");
     let applianceFilterDiv = document.querySelector(".appliances_filter");
     let applianceFilterList = document.createElement("ul");
     applianceFilterList.className = "list_display";
@@ -36,6 +37,11 @@ function createApplianceFilter(){
             let m = document.createElement("li");
             m.innerText = newApp;
             applianceFilterList.appendChild(m);
+            m.onclick = function (){
+                applianceInputValue.value = newApp;
+                applianceFilterList.removeChild(m);
+                populateTag(newApp, "green", appliancesArray);
+            }
         }
     });
 }

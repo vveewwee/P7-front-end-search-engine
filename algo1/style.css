@@ -174,10 +174,10 @@ body{
     display: flex;
     flex-flow: row nowrap;
 }
-
+/*
 .recipe_ingredients_container{
     width:50%;
-}
+}*/
 
 .recipe_div_preparation{
     overflow:hidden; 

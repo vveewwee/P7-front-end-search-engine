@@ -71,7 +71,7 @@ let filterApplianceDiv = document.getElementById("appliances");
 let filterUstensilDiv = document.getElementById("ustensiles");
 
 /*---- create Ingredient Input ---*/
-
+/*
 let newIngredientForm = document.createElement("form");
 
 let newIngredientInput = document.createElement("input");
@@ -79,7 +79,7 @@ newIngredientInput.className = "blue";
 newIngredientInput.name = "ingredients";
 newIngredientInput.id = "ingredients";
 newIngredientForm.appendChild(newIngredientInput);
-
+*/
 let ingredientInput = document.getElementById("ingredientsInput");
 
 filterIngredientDiv.onclick = function()
@@ -98,7 +98,7 @@ filterIngredientDiv.onclick = function()
 };
 
 /*---- create Appliance Input ---*/
-
+/*
 let newApplianceForm = document.createElement("form");
 //newApplianceForm.setAttribute("autocomplete", "on");
 
@@ -107,26 +107,32 @@ newApplianceInput.className = "green";
 newApplianceInput.name = "appliances";
 newApplianceInput.id = "appliances";
 newApplianceForm.appendChild(newIngredientInput);
-
+*/
 let applianceInput = document.getElementById("appliancesInput");
-filterApplianceDiv.onclick = function()
-{
+
+filterApplianceDiv.onmouseover = change;
+
+function change() {
     const displayApplianceDiv = filterApplianceDiv.children[3];
-    if (displayApplianceDiv.style.display != ""){
-        displayApplianceDiv.style.display = "";
-        filterApplianceDiv.children[2].className="fa-solid fa-angle-down icon";
-        applianceInput.placeholder="Appareils";
-    }else{
-        displayApplianceDiv.style.display = "grid";
-        document.forms["filterForm"].appliancesFilter.focus();
-        filterApplianceDiv.children[2].className="fa-solid fa-angle-up icon";
-        applianceInput.placeholder = "Recherchez une recette";
-        populateAppliancesList();
-    }
+
+    displayApplianceDiv.style.display = "grid";
+    document.forms["filterForm"].appliancesFilter.focus();
+    filterApplianceDiv.children[2].className = "fa-solid fa-angle-up icon";
+    applianceInput.placeholder = "Recherchez une recette";
+    populateAppliancesList();
+};
+filterApplianceDiv.onmouseout = changeback;
+
+function changeback() {
+    const displayApplianceDiv = filterApplianceDiv.children[3];
+    displayApplianceDiv.style.display = "";
+    filterApplianceDiv.children[2].className = "fa-solid fa-angle-down icon";
+    applianceInput.placeholder = "Appareils";
+
 };
 
 /*---- Create Ustensil Input ---*/
-
+/*
 let newUstensilForm = document.createElement("form");
 
 let newUstensilInput = document.createElement("input");
@@ -134,7 +140,7 @@ newUstensilInput.className = "red";
 newUstensilInput.name = "ingredients";
 newUstensilInput.id = "ingredients";
 newUstensilForm.appendChild(newUstensilInput);
-
+*/
 let ustensilesInput = document.getElementById("ustensilesInput");
 
 filterUstensilDiv.onclick = function(){
@@ -173,9 +179,10 @@ function populateIngredientList() {
         let ingredientListElement = document.createElement("li");
         ingredientListElement.innerText = ingredientArray[i];
         ingredientUListElement.appendChild(ingredientListElement);
-        ingredientListElement.onclick = function(){
-            populateTags(this, "blue");
-            recipeSearch(this);
+        ingredientListElement.onmousedown= function(){
+            ingredientInput.value = this;
+//            populateTags(this, "blue");
+//            recipeSearch(this);
         }.bind(ingredientArray[i]);
     }
 }
@@ -195,9 +202,10 @@ function populateAppliancesList() {
         let applianceListElement = document.createElement("li");
         applianceListElement.innerText = applianceArray[i];
         applianceUListElement.appendChild(applianceListElement);
-        applianceListElement.onclick = function (){
-            populateTags(this, "green");
-            recipeSearch(this);
+        applianceListElement.onmouseover= function (){
+            applianceInput.value = this;
+//            populateTags(this, "green");
+//            recipeSearch(this);
         }.bind(applianceArray[i]);
     }
 }
@@ -217,9 +225,10 @@ function populateUstensilesList() {
         let ustencilListElement = document.createElement("li");
         ustencilListElement.innerText = ustensilArray[i];
         ustencilUListElement.appendChild(ustencilListElement);
-        ustencilUListElement.onclick = function (){
-            populateTags(this, "red");
-            recipeSearch(this);
+        ustencilUListElement.onmousedown = function (){
+            ustensilesInput.value = this;
+//            populateTags(this, "red");
+//            recipeSearch(this);
         }.bind(ustensilArray[i]);
     }
 }
@@ -294,6 +303,7 @@ function createRecipeDiv(e){
     for (var i = 0; i <recipeIngredients.length; i++)
     {
         let RT = document.createElement("p");
+        RT.style.padding = "0";
         RT.innerHTML += "<b>" + recipeIngredients[i] + "</b>";
         if (recipeQuantity[i] || recipeUnit[i])
         {
@@ -402,7 +412,7 @@ let applianceFilteredArray = [];
 
 function GetApplianceFilterValue(e) {
     let applianceFilterValue = document.getElementById("appliancesInput").value;
-    if (e.code == "Enter") {
+    if (e.code == "Enter" ) {
         if (selectedElements.length == 0) {
 
             if (applianceFilterValue.length >= 3) {
@@ -507,7 +517,6 @@ function populateTags(elem,color) {
     if(!tagArray.includes(elem))
     {
         tagArray.push(elem);
-        console.log(tagArray);
     }
     let removeIcon = document.createElement("i");
     removeIcon.className = "fa-regular fa-circle-xmark fa-lg";
