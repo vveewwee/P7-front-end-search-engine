@@ -81,7 +81,26 @@ newIngredientInput.id = "ingredients";
 newIngredientForm.appendChild(newIngredientInput);
 */
 let ingredientInput = document.getElementById("ingredientsInput");
+let displayIngredientDiv = filterIngredientDiv.children[3];
 
+filterIngredientDiv.onmouseover = function()
+{
+    displayIngredientDiv.style.display = "grid";
+    filterIngredientDiv.children[2].className="fa-solid fa-angle-up icon";
+    ingredientInput.placeholder="Recherchez une recettes";
+    displayIngredientDiv.style.cursor = "pointer";
+    populateIngredientList();
+};
+
+filterIngredientDiv.onmouseout = function()
+{
+    displayIngredientDiv.style.display = "";
+    filterIngredientDiv.children[2].className="fa-solid fa-angle-down icon";
+    ingredientInput.placeholder="Ingredients";
+};
+
+
+/*older version
 filterIngredientDiv.onclick = function()
 {
     const displayIngredientDiv = filterIngredientDiv.children[3];
@@ -95,7 +114,8 @@ filterIngredientDiv.onclick = function()
         filterIngredientDiv.children[2].className="fa-solid fa-angle-up icon";
         ingredientInput.placeholder="Recherchez une recettes";
 	    populateIngredientList();}
-};
+};*/
+
 
 /*---- create Appliance Input ---*/
 /*
@@ -112,11 +132,10 @@ let applianceInput = document.getElementById("appliancesInput");
 
 filterApplianceDiv.onmouseover = function () {
     const displayApplianceDiv = filterApplianceDiv.children[3];
-
     displayApplianceDiv.style.display = "grid";
-    document.forms["filterForm"].appliancesFilter.focus();
     filterApplianceDiv.children[2].className = "fa-solid fa-angle-up icon";
     applianceInput.placeholder = "Recherchez une recette";
+    displayApplianceDiv.style.cursor = "pointer";
     populateAppliancesList();
 };
 
@@ -139,20 +158,21 @@ newUstensilInput.id = "ingredients";
 newUstensilForm.appendChild(newUstensilInput);
 */
 let ustensilesInput = document.getElementById("ustensilesInput");
+const displayUstensilDiv = filterUstensilDiv.children[3];
 
-filterUstensilDiv.onclick = function(){
-    const displayUstensilDiv = filterUstensilDiv.children[3];
-    if (displayUstensilDiv.style.display != ""){
-        displayUstensilDiv.style.display = "";
-        filterUstensilDiv.children[2].className="fa-solid fa-angle-down icon";
-        ustensilesInput.placeholder = "Ustensiles";
-    }else{
-        displayUstensilDiv.style.display = "grid";
-        document.forms["filterForm"].ustensilesFilter.focus();
-        filterUstensilDiv.children[2].className="fa-solid fa-angle-up icon";
-        ustensilesInput.placeholder = "Recherchez une recette";
-        populateUstensilesList();
-    }
+filterUstensilDiv.onmouseover = function(){
+    displayUstensilDiv.style.display = "grid";
+    document.forms["filterForm"].ustensilesFilter.focus();
+    filterUstensilDiv.children[2].className="fa-solid fa-angle-up icon";
+    ustensilesInput.placeholder = "Recherchez une recette";
+    displayUstensilDiv.style.cursor = "pointer";
+    populateUstensilesList();
+};
+
+filterUstensilDiv.onmouseout = function(){
+    displayUstensilDiv.style.display = "";
+    filterUstensilDiv.children[2].className="fa-solid fa-angle-down icon";
+    ustensilesInput.placeholder = "Ustensiles";       
 };
 
 function refreshIngredientList(){
@@ -164,7 +184,6 @@ function refreshIngredientList(){
 /*------ Populate Ingredients Filter Div list ----*/
 
 function populateIngredientList() {
-    const displayIngredientDiv = filterIngredientDiv.children[3];
     displayIngredientDiv.innerHTML = "";
     displayIngredientDiv.className = "filter_options_list";
     let ingredientUListElement = document.createElement("ul");
@@ -503,7 +522,7 @@ function GetUstensilFilterValue(e) {
 
 let keyWords = document.querySelector(".key_words");
 let tagArray = [];
-console.log(tagArray);
+
 function populateTags(elem,color) {
 
     let keyWordsDiv = document.createElement("div");
@@ -522,10 +541,10 @@ function populateTags(elem,color) {
 
     removeIcon.onclick = function () {
         let index = tagArray.indexOf(elem);
-        console.log(index);
         tagArray.splice(index,1);
         keyWords.removeChild(keyWordsDiv);
         console.log("clicked " + tagArray);
+        filterRecipes(color);
     };
     console.log(tagArray);
 }
@@ -539,6 +558,28 @@ function insideIngredients(e, index){
         }
     }
     return 0;
+}
+
+function filterRecipes(color){
+    let e = 0;
+    console.log(color);
+    if (color == "blue")
+        e = "ingredients";
+    if (color == "green")
+        e = "appliance";
+    if (color == "red")
+        e = "ustensils";
+        console.log(e);
+    for (var i = 0; i < tagArray.length;i++)
+    {
+        for(var i2 = 0; i2 < recipes.length; i2++)
+        {
+            console.log(recipes[i2].e);
+            if(recipes[i2].e.toString().toLowerCase().includes(tagArray[i].toLowerCase()))
+                createRecipeDiv(recipes[k]);
+        }
+    }
+
 }
 
 
@@ -562,6 +603,8 @@ const init = async () => {
     ustensilesElements();
     nameElement();
     preparationElement();
+    for (var i = 0; i < recipes.length; i++)
+        createRecipeDiv(recipes[i]);
 };
 
 /*---- onload, creation of list elements array ---*/
