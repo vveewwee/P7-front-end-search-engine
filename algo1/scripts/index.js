@@ -110,9 +110,7 @@ newApplianceForm.appendChild(newIngredientInput);
 */
 let applianceInput = document.getElementById("appliancesInput");
 
-filterApplianceDiv.onmouseover = change;
-
-function change() {
+filterApplianceDiv.onmouseover = function () {
     const displayApplianceDiv = filterApplianceDiv.children[3];
 
     displayApplianceDiv.style.display = "grid";
@@ -121,9 +119,8 @@ function change() {
     applianceInput.placeholder = "Recherchez une recette";
     populateAppliancesList();
 };
-filterApplianceDiv.onmouseout = changeback;
 
-function changeback() {
+filterApplianceDiv.onmouseout = function() {
     const displayApplianceDiv = filterApplianceDiv.children[3];
     displayApplianceDiv.style.display = "";
     filterApplianceDiv.children[2].className = "fa-solid fa-angle-down icon";
@@ -225,7 +222,7 @@ function populateUstensilesList() {
         let ustencilListElement = document.createElement("li");
         ustencilListElement.innerText = ustensilArray[i];
         ustencilUListElement.appendChild(ustencilListElement);
-        ustencilUListElement.onmousedown = function (){
+        ustencilListElement.onmousedown = function (){
             ustensilesInput.value = this;
 //            populateTags(this, "red");
 //            recipeSearch(this);
@@ -506,7 +503,7 @@ function GetUstensilFilterValue(e) {
 
 let keyWords = document.querySelector(".key_words");
 let tagArray = [];
-
+console.log(tagArray);
 function populateTags(elem,color) {
 
     let keyWordsDiv = document.createElement("div");
@@ -523,9 +520,10 @@ function populateTags(elem,color) {
     keyWordsDiv.append(keyWordsTag, removeIcon);
     keyWords.appendChild(keyWordsDiv);
 
-    removeIcon.onclick = function (e,index) {
-        tagArray.splice(e, index);
+    removeIcon.onclick = function () {
+        let index = tagArray.indexOf(elem);
         console.log(index);
+        tagArray.splice(index,1);
         keyWords.removeChild(keyWordsDiv);
         console.log("clicked " + tagArray);
     };

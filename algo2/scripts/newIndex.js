@@ -83,3 +83,29 @@ window.onload = () => {
     createApplianceFilter();
     createUstensileFilter();
 };
+
+
+
+/* from algo1 *//*
+let applianceInput = document.getElementById("appliancesInput");
+
+filterApplianceDiv.onmouseover = change;
+
+function change() {
+    const displayApplianceDiv = filterApplianceDiv.children[3];
+
+    displayApplianceDiv.style.display = "grid";
+    document.forms["filterForm"].appliancesFilter.focus();
+    filterApplianceDiv.children[2].className = "fa-solid fa-angle-up icon";
+    applianceInput.placeholder = "Recherchez une recette";
+    populateAppliancesList();
+};
+filterApplianceDiv.onmouseout = changeback;
+
+function changeback() {
+    const displayApplianceDiv = filterApplianceDiv.children[3];
+    displayApplianceDiv.style.display = "";
+    filterApplianceDiv.children[2].className = "fa-solid fa-angle-down icon";
+    applianceInput.placeholder = "Appareils";
+
+};*/
