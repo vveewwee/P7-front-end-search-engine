@@ -90,12 +90,10 @@ filterIngredientDiv.onmouseover = function()
     ingredientInput.placeholder="Recherchez une recette";
     displayIngredientDiv.style.cursor = "pointer";
     populateIngredientList();
-			//console.log("mouse over");
 };
 
 filterIngredientDiv.onmouseout = function()
 {
-	//console.log("mouseout");
     displayIngredientDiv.style.display = "";
     filterIngredientDiv.children[2].className="fa-solid fa-angle-down icon";
     ingredientInput.placeholder="Ingredients";
@@ -525,55 +523,30 @@ function GetUstensilFilterValue(e) {
 let keyWords = document.querySelector(".key_words");
 let tagArray = [];
 
-function Tag(text, color)
-{
-	this.text = text;
-	this.color = color;
-}
+function populateTags(elem,color) {
 
-function findTag(text, color)
-{
-	let index = -1;
-	for(let i=0; i< tagArray.length; i++)
-	{
-		if((tagArray[i].text == text) && (tagArray[i].color == color))
-		{
-			index = i;
-			break;
-		}
-	}
-	return index;
-}
+    let keyWordsDiv = document.createElement("div");
+    keyWordsDiv.className =  color+ " tag_container_div";
+    let keyWordsTag = document.createElement("p");
+    keyWordsTag.style.paddingRight = "4px";
+    keyWordsTag.innerText = elem;
+    if(!tagArray.includes(elem))
+    {
+        tagArray.push(elem);
+    }
+    let removeIcon = document.createElement("i");
+    removeIcon.className = "fa-regular fa-circle-xmark fa-lg";
+    keyWordsDiv.append(keyWordsTag, removeIcon);
+    keyWords.appendChild(keyWordsDiv);
 
-function populateTags(text,color)
-{
-	if(findTag(text, color) >= 0)
-	{
-		return;
-	}
-		
-	let keyWordsDiv = document.createElement("div");
-	keyWordsDiv.className =  color+ " tag_container_div";
-	let keyWordsTag = document.createElement("p");
-	keyWordsTag.style.paddingRight = "4px";
-	keyWordsTag.innerText = text;
-
-  tagArray.push(new Tag(text, color));
-
-	let removeIcon = document.createElement("i");
-	removeIcon.className = "fa-regular fa-circle-xmark fa-lg";
-	keyWordsDiv.append(keyWordsTag, removeIcon);
-	keyWords.appendChild(keyWordsDiv);
-
-	removeIcon.onclick = function () {
-			let index = findTag(text, color);
-			tagArray.splice(index,1);
-			keyWords.removeChild(keyWordsDiv);
-			console.log("clicked " + tagArray);
-			filterRecipes();
-	};
-	filterRecipes();
-	console.log(tagArray);
+    removeIcon.onclick = function () {
+        let index = tagArray.indexOf(elem);
+        tagArray.splice(index,1);
+        keyWords.removeChild(keyWordsDiv);
+        console.log("clicked " + tagArray);
+        filterRecipes(color);
+    };
+    console.log(tagArray);
 }
 
 /*------- Research recipe with ---------*/
@@ -587,33 +560,25 @@ function insideIngredients(e, index){
     return 0;
 }
 
-function filterRecipes()
-{
-	recipeSection.innerHTML = "";
-	
-	for(let i=0; i < recipes.length; i++)
-	{
-		let showRecipe = true;
-		for(let j=0; j < tagArray.length; j++)
-		{
-			let text = tagArray[j].text;
-			let color = tagArray[j].color;
-			
-			switch(color)
-			{
-				case "blue":
-				{
-					//
-					break;
-				}
-			}
-		}
-		
-		if(showRecipe)
-		{
-			createRecipeDiv(recipes[i]);
-		}
-	}
+function filterRecipes(color){
+    let e = 0;
+    console.log(color);
+    if (color == "blue")
+        e = "ingredients";
+    if (color == "green")
+        e = "appliance";
+    if (color == "red")
+        e = "ustensils";
+        console.log(e);
+    for (var i = 0; i < tagArray.length;i++)
+    {
+        for(var i2 = 0; i2 < recipes.length; i2++)
+        {
+            console.log(recipes[i2].e);
+            if(recipes[i2].e.toString().toLowerCase().includes(tagArray[i].toLowerCase()))
+                createRecipeDiv(recipes[k]);
+        }
+    }
 
 }
 
