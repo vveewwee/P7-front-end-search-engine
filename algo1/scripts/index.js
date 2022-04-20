@@ -385,6 +385,7 @@ function GetInsertedValue(e) {
 
 function GetIngredientFilterValue(e) {
     console.log("SE length: " + selectedElements.length);
+    let ingredientFilteredArray = [];
 
     let ingredientFilterValue = document.getElementById("ingredientsInput").value;
     if (e.code == "Enter") {
@@ -612,7 +613,15 @@ function populateTags(text,color)
                 console.log("inside populateTAg color == red condition");
                 populateUstensilesList();
             }
-			filterRecipes();
+            if (tagArray.length == 0){
+                for (var i = 0; i < recipes.length; i++){
+                    createRecipeDiv(recipes[i]);
+                }
+            }
+            else
+            {
+			    filterRecipes();
+            }
 	};
 	filterRecipes();
 }
@@ -638,11 +647,7 @@ function filterRecipes() {
 
                 switch (color) {
                     case "gray":
-                        if (recipes[i].name.toLowerCase().includes(text) ||
-                            recipes[i].description.toLowerCase().includes(text) ||
-                            recipes[i].appliance.toLowerCase().includes(text) || insideIngredients(text, i)) {
-                            selectedElements.push(recipes[i]);
-                        }
+                            //recipeSearch(text);
                         break;
                     case "blue":
                         for (let i2 = 0; i2 < recipes[i].ingredients.length; i2++) {
@@ -678,70 +683,48 @@ function filterRecipes() {
     }
     else
     {
-        for (let s = 0; s < selectedElements.length;s++)
-        {
+        console.log(selectedElements);
+//        console.log(selectedElements[0].ingredients.length);
+        for (let s = 0; s < selectedElements.length; s++) {
             for (let k = 0; k < tagArray.length; k++) {
                 let text = tagArray[k].text.toLowerCase();
                 let color = tagArray[k].color;
 
+                console.log(text +" "+ color);
                 switch (color) {
                     case "gray":
-                        if (!selectedElements[s].name.toLowerCase().includes(text) ||
-                        !selectedElements[s].description.toLowerCase().includes(text) ||
-                            !selectedElements[s].appliance.toLowerCase().includes(text) || !insideIngredients(text, i)) {
-                                selectedElements.splice(s,1);
-                        }
+                           // recipeSearch(text);
                         break;
                     case "blue":
-                        for (let i2 = 0; i2 < selectedElements[s].ingredients.length; i2++) {
+                        for (let i2 = 0; i2 < selectedElements[s].length; i2++) {
                             if (!selectedElements[s].ingredients[i2].ingredient.toLowerCase().includes(text)) {
-                                    selectedElements.splice(s,1);
-                                }
+                                console.log(selectedElements[s]);
+                                selectedElements.splice(s, 1);
                             }
+                        }
                         break;
                     case "green":
                         if (!selectedElements[s].appliance.toLowerCase().includes(text)) {
-                                selectedElements.splice(s,1);
+                            selectedElements.splice(s, 1);
                         }
                         break;
                     case "red":
                         for (i3 = 0; i3 < recipes[i].ustensils.length; i3++) {
                             if (!selectedElements[s].ustensils[i3].toLowerCase().includes(text)) {
-                                selectedElements.splice(s,1);
-                                }
+                                selectedElements.splice(s, 1);
                             }
                         }
-                        break;
                 }
+                break;
             }
+        }
+        console.log(selectedElements);
     }
     for (let print = 0; print < selectedElements.length; print++){
         createRecipeDiv(selectedElements[print]);
     }
 };
-/*
-function insideIngredients(e, index){
-    for(var i =0;i < recipes[index].ingredients.length;i++){
-        if (recipes[index].ingredients[i].ingredient.toString().toLowerCase().includes(e.toLowerCase())){
-            return 1;
-        }
-    }
-    return 0;
-}
 
-function recipeSearch(e){
-    recipeSection.innerHTML = "";
-    selectedElements = [];
-    for(var i = 0; i < recipes.length;i++){
-
-        if(recipes[i].name.toLowerCase().includes(e.toLowerCase()) ||
-         recipes[i].description.toLowerCase().includes(e.toLowerCase()) ||
-         recipes[i].appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, i)){
-            createRecipeDiv(recipes[i]);
-            selectedElements.push(recipes[i]);
-        }
-    }   
-}*/
 
 const init = async () => {
     ingredientElements();
@@ -764,9 +747,30 @@ window.onload = () => {
 
 
 
+/*
 
+function insideIngredients(e, index){
+    for(var i =0;i < recipes[index].ingredients.length;i++){
+        if (recipes[index].ingredients[i].ingredient.toString().toLowerCase().includes(e.toLowerCase())){
+            return 1;
+        }
+    }
+    return 0;
+}
 
+function recipeSearch(e){
+    recipeSection.innerHTML = "";
+    selectedElements =[];x
+    for(var i = 0; i < recipes.length;i++){
 
+        if(recipes[i].name.toLowerCase().includes(e.toLowerCase()) ||
+         recipes[i].description.toLowerCase().includes(e.toLowerCase()) ||
+         recipes[i].appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, i)){
+//           createRecipeDiv(recipes[i]);
+            selectedElements.push(recipes[i]);
+        }
+    }   
+}
 /*
 function filterRecipes()
 {	
