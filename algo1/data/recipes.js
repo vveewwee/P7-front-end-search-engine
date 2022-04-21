@@ -34,6 +34,7 @@ const recipes = [
     },
     {
         "id": 2,
+        
         "name" : "Poisson Cru à la tahitienne",
         "servings": 2,
         "ingredients": [
