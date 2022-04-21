@@ -598,20 +598,16 @@ function populateTags(text,color)
 			tagArray.splice(index,1);
 			keyWords.removeChild(keyWordsDiv);
 			console.log("clicked " + tagArray);
-            if (color == "blue")
-            {
-                console.log("inside populateTags color == blue condition");
-                populateIngredientList();
-            }
-            if (color == "green")
-            {
-                console.log("inside populateTag color == green condition ");
-                populateAppliancesList();
-            }
-            if (color == "red")
-            {
-                console.log("inside populateTAg color == red condition");
-                populateUstensilesList();
+            switch(color){
+                case "blue":
+                    populateIngredientList();
+                    break;
+                case "green":
+                    populateAppliancesList();
+                    break;
+                case "red":
+                    populateUstensilesList();
+                    break;
             }
             if (tagArray.length == 0){
                 for (var i = 0; i < recipes.length; i++){
@@ -620,7 +616,7 @@ function populateTags(text,color)
             }
             else
             {
-			    filterRecipes();
+			    return filterRecipes();
             }
 	};
 	filterRecipes();
@@ -647,7 +643,11 @@ function filterRecipes() {
 
                 switch (color) {
                     case "gray":
-                            //recipeSearch(text);
+                        if (recipes[i].name.toLowerCase().includes(text) ||
+                            recipes[i].description.toLowerCase().includes(text) ||
+                            recipes[i].appliance.toLowerCase().includes(text) || insideIngredients(text, i)) {
+                            selectedElements.push(recipes[i]);
+                        }
                         break;
                     case "blue":
                         for (let i2 = 0; i2 < recipes[i].ingredients.length; i2++) {
@@ -655,7 +655,7 @@ function filterRecipes() {
                                 if (!selectedElements.includes(recipes[i])) {
                                     selectedElements.push(recipes[i]);
                                 }
-                                console.log(recipes[i].ingredients[i2].ingredient);
+                                console.log(text + ": " + recipes[i].ingredients[i2].ingredient);
                             }
                         }
                         break;
@@ -681,25 +681,27 @@ function filterRecipes() {
             }
         }
     }
-    else
-    {
+    else {
         console.log(selectedElements);
-//        console.log(selectedElements[0].ingredients.length);
-        for (let s = 0; s < selectedElements.length; s++) {
-            for (let k = 0; k < tagArray.length; k++) {
-                let text = tagArray[k].text.toLowerCase();
-                let color = tagArray[k].color;
+        //        console.log(selectedElements[0].ingredients.length);
 
-                console.log(text +" "+ color);
+        for (let k = 0; k < tagArray.length; k++) {
+            let text = tagArray[k].text.toLowerCase();
+            let color = tagArray[k].color;
+            for (let s = 0; s < selectedElements.length; s++) {
+                console.log(text + " " + color);
                 switch (color) {
                     case "gray":
-                           // recipeSearch(text);
+                        // recipeSearch(text);
                         break;
                     case "blue":
-                        for (let i2 = 0; i2 < selectedElements[s].length; i2++) {
-                            if (!selectedElements[s].ingredients[i2].ingredient.toLowerCase().includes(text)) {
-                                console.log(selectedElements[s]);
+                        for (let i2 = 0; i2 < selectedElements[s].ingredients.length; i2++) {
+                            if (selectedElements[s].ingredients[i2].ingredient.toLowerCase().includes(text)) {
+                                console.log(selectedElements[s] + "text :" + text);
+                            } else {
                                 selectedElements.splice(s, 1);
+                                console.log(selectedElements);
+                                break;
                             }
                         }
                         break;
