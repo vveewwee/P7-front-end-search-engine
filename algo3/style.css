@@ -38,6 +38,10 @@ body{
     background-color: rgb(233, 233, 230);
 }
 
+.search_input:focus{
+    outline: none;
+}
+
 .section_key_words{
     display:flex;
     flex-flow: column nowrap;

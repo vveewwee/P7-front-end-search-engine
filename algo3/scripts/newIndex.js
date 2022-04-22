@@ -37,7 +37,7 @@ function createIngredientFilter() {
 
     recipes.forEach((recipe) => {
         recipe.ingredients.forEach((ingredient) => {
-            const newIngr = ingredient.ingredient;
+            const newIngr = ingredient.ingredient.toLowerCase();
             if (!ingredientsArray.includes(newIngr)) {
                 ingredientsArray.push(newIngr);
                 let m = document.createElement("li");
@@ -65,7 +65,7 @@ function createApplianceFilter(){
     applianceFilterDiv.appendChild(applianceFilterList);
     
     recipes.forEach((recipe) => {
-        const newApp = recipe.appliance;
+        const newApp = recipe.appliance.toLowerCase();
         if (!appliancesArray.includes(newApp)){
             appliancesArray.push(newApp);
             let m = document.createElement("li");
@@ -92,7 +92,7 @@ function createUstensileFilter(){
 
     recipes.forEach((recipe) => {
         recipe.ustensils.forEach((ustensil) => {
-            const newUst = ustensil;
+            const newUst = ustensil.toLowerCase();
             if (!ustensilsArray.includes(newUst)){
                 ustensilsArray.push(newUst);
                 let m = document.createElement("li");

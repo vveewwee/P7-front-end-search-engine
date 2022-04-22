@@ -6,7 +6,7 @@ const ingredientElements = async () => {
     recipes.forEach((recipe) => {
         recipe.ingredients.forEach((ingredient) => {
             if (!ingredientArray.includes(ingredient.ingredient)) {
-                ingredientArray.push(ingredient.ingredient);
+                ingredientArray.push(ingredient.ingredient.toLowerCase());
             }
         });
     });
@@ -18,7 +18,7 @@ const applianceElements = async () => {
     
     recipes.forEach((recipe)=> {
         if (!applianceArray.includes(recipe.appliance)){
-            applianceArray.push(recipe.appliance);
+            applianceArray.push(recipe.appliance.toLowerCase());
         }
     });
 };
@@ -30,7 +30,7 @@ const ustensilesElements = async () => {
     recipes.forEach((recipe) => {
         recipe.ustensils.forEach((ustensil) => {
             if (!ustensilArray.includes(ustensil)) {
-                ustensilArray.push(ustensil);
+                ustensilArray.push(ustensil.toLowerCase());
             }
         });
     });
@@ -498,7 +498,7 @@ function filterRecipes() {
                         break;
                     case "red":
                         recipe.ustensils.forEach((ustensil) => {
-                            if (ustensil.toLowerCase().include(text)) {
+                            if (ustensil.toLowerCase().includes(text)) {
                                 if (!selectedElements.includes(recipe)) {
                                     selectedElements.push(recipe);
                                 }
@@ -547,6 +547,7 @@ function filterRecipes() {
             console.log(newSelectedElements);
             selectedElements = newSelectedElements;
         } else {
+            alert("Sorry, no match was found, but here are some ideas");
             recipes.forEach((recipe) => {
                 createRecipeDiv(recipe);
             });
