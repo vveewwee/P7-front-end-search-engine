@@ -1,33 +1,26 @@
 /*--------- Create Filter List Element arrays for Ingredients,Appliances & Ustensils ----------*/
 
-let ingredientSearch = [];
 let ingredientArray = [];
 
-
 const ingredientElements = async () => {
-    for (var i = 0; i < recipes.length; i++) {
-        ingredientSearch = recipes[i].ingredients;
-        for (var i2 = 0; i2 < ingredientSearch.length; i2++) {
-            let ingredientProducts = ingredientSearch[i2].ingredient;
-            if (ingredientArray.includes(ingredientProducts))
-                break;
-            else
-                ingredientArray.push(ingredientProducts);
-        }
-    }
+    recipes.forEach((recipe) => {
+        recipe.ingredients.forEach((ingredient) => {
+            if (!ingredientArray.includes(ingredient.ingredient)) {
+                ingredientArray.push(ingredient.ingredient);
+            }
+        });
+    });
 };
 
 let applianceArray = [];
 
-
 const applianceElements = async () => {
     
-    for (var i = 0; i < recipes.length; i++)
-    {
-        let applianceProducts = recipes[i].appliance;
-        if (!applianceArray.includes(applianceProducts))
-            applianceArray.push(applianceProducts);
-    }
+    recipes.forEach((recipe)=> {
+        if (!applianceArray.includes(recipe.appliance)){
+            applianceArray.push(recipe.appliance);
+        }
+    });
 };
 
 let ustensileSearch = [];
@@ -35,14 +28,13 @@ let ustensilArray = [];
 
 const ustensilesElements = async () => {
 
-    for (var i = 0; i < recipes.length; i++) {
-        ustensileSearch = recipes[i].ustensils;
-        for (var i2 = 0; i2 < ustensileSearch.length; i2++) {
-            let ustensileProduct = ustensileSearch[i2];
-            if (!ustensilArray.includes(ustensileProduct))
-                ustensilArray.push(ustensileProduct);
-        }
-    }
+    recipes.forEach((recipe) => {
+        recipe.ustensils.forEach((ustensil)=> {
+                if (!ustensilArray.includes(ustensil)){
+                    ustensilArray.push(ustensil);
+                }
+        });
+    });
 };
 
 /*------- Name Array and Preparation Array for Inserted Value search --------*/
@@ -50,19 +42,17 @@ const ustensilesElements = async () => {
 let nameArray = [];
 
 const nameElement = async () => {
-    for (var i = 0; i < recipes.length; i++){
-        let firstNameArray = recipes[i].name;
-        nameArray.push(firstNameArray);
-    }
+    recipes.forEach((recipe)=>{
+        nameArray.push(recipe.name);
+    });
 };
 
 let preparationArray = [];
 
 const preparationElement = async () => {
-    for (var i = 0; i < recipes.length; i++){
-        let firstPreparationArray = recipes[i].description;
-        preparationArray.push(firstPreparationArray);
-    }
+    recipes.forEach((recipe)=> {
+        preparationArray.push(recipe.description);
+    });
 };
 /*---- display filter list elements ----*/
 
@@ -155,26 +145,23 @@ function populateIngredientList() {
     ingredientUListElement.className = "list_display";
     displayIngredientDiv.appendChild(ingredientUListElement);
     let deletedElements = [];
-    for (var k=0; k < tagArray.length;k++)
-    {
-        if (tagArray[k].color == "blue"){
-            deletedElements.push(tagArray[k].text.toString());
+    tagArray.forEach((tag)=> {
+        if (tag.color == "blue"){
+            deletedElements.push(tag.text.toString());
         }
-    }
-
-    for (var i = 0; i < ingredientArray.length; i++) {
-        
-        if (!deletedElements.includes(ingredientArray[i])) {
+    });
+    ingredientArray.forEach((ingredient)=> {
+        if (!deletedElements.includes(ingredient)) {
             let ingredientListElement = document.createElement("li");
-            ingredientListElement.innerText = ingredientArray[i];
+            ingredientListElement.innerText = ingredient;
             ingredientUListElement.appendChild(ingredientListElement);
             ingredientListElement.onmousedown = function () {
                 ingredientInput.value = "";
                 ingredientUListElement.removeChild(ingredientListElement);
                 populateTags(this, "blue");
-            }.bind(ingredientArray[i]);
+            }.bind(ingredient);
         }
-    }
+    });
 }
 
 /*------ Populate Appliance Filter Div list ----*/
@@ -187,27 +174,25 @@ function populateAppliancesList() {
     applianceUListElement.className = "list_display";
     displayApplianceDiv.appendChild(applianceUListElement);
     let deletedElements = [];
-    for (var k=0; k < tagArray.length;k++)
-    {
-        if (tagArray[k].color == "green"){
-            deletedElements.push(tagArray[k].text.toString());
+    tagArray.forEach((tag) => {
+        if (tag.color == "green") {
+            deletedElements.push(tag.text.toString());
         }
-    }
-   
-    for(var i = 0; i < applianceArray.length;i++)
-    {
-        if (!deletedElements.includes(applianceArray[i])) {
+    });
+
+    applianceArray.forEach((appliance) => {
+        if (!deletedElements.includes(appliance)) {
             let applianceListElement = document.createElement("li");
-            applianceListElement.innerText = applianceArray[i];
+            applianceListElement.innerText = appliance;
             applianceUListElement.appendChild(applianceListElement);
             applianceListElement.onmousedown = function () {
                 applianceInput.value = "";
                 applianceUListElement.removeChild(applianceListElement);
                 populateTags(this, "green");
-            }.bind(applianceArray[i]);
+            }.bind(appliance);
         }
-    }
-}
+    });
+};
 
 /*------ Populate Ustensils Filter Div list ----*/
 
@@ -219,30 +204,28 @@ function populateUstensilesList() {
     ustencilUListElement.className = "list_display";
     displayUstensilDiv.appendChild(ustencilUListElement);
     let deletedElements = [];
-    for (var k=0; k < tagArray.length;k++)
-    {
-        if (tagArray[k].color == "red"){
-            deletedElements.push(tagArray[k].text.toString());
+    tagArray.forEach((tag)=>{
+        if (tag.color == "red"){
+            deletedElements.push(tag.text.toString());
         }
-    }
+    });
 
-
-    for(var i = 0; i < ustensilArray.length;i++)
-    {
-        if (!deletedElements.includes(ustensilArray[i]))
+    ustensilArray.forEach((ustensil)=>{
+        if (!deletedElements.includes(ustensil))
         {
             let ustencilListElement = document.createElement("li");
-            ustencilListElement.innerText = ustensilArray[i];
+            ustencilListElement.innerText = ustensil;
             ustencilUListElement.appendChild(ustencilListElement);
             ustencilListElement.onmousedown = function (){
                 ustensilesInput.value = "";
                 ustencilUListElement.removeChild(ustencilListElement);
                 populateTags(this, "red");
 
-        }.bind(ustensilArray[i]);
+        }.bind(ustensil);
         }
-    }
+    });
 }
+
 
 
 /*--------- Recipe creation factory ------*/
