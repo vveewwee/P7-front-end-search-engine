@@ -500,6 +500,7 @@ function recipeSearch(e){
         }
     }   
 }
+
 function filterRecipes() {
     recipeSection.innerHTML = "";
     let newSelectedElements = [];
@@ -544,34 +545,50 @@ function filterRecipes() {
         }
     } else {
         console.log(selectedElements);
-        for (var k = 1; k < tagArray.length; k++) {
+        for (var s = 0; s < selectedElements.length; s++) {
+            var k = tagArray.length - 1;
             let text = tagArray[k].text.toLowerCase();
             let color = tagArray[k].color;
-            for (var s = 0; s < selectedElements.length; s++) {
-                switch (color) {
-                    case "gray":
-                        recipeSearch(text);
-                        break;
-                    case "blue":
-                        if (searchByIngredients(text,s) === 1)
-                            newSelectedElements.push(selectedElements[s]);
-                        break;
-                    case "green":
-                        if (searchByAppliance(text,s) === 1)
-                            newSelectedElements.push(selectedElements[s]);
-                        break;
-                    case "red":
-                        if (searchByUstensils(text,s) == 1)
-                            newSelectedElements.push(selectedElements[s]);
-                        break;
-                }
-            }
 
+            switch (color) {
+                case "gray":
+                    recipeSearch(text);
+                    for (let print = 0; print < selectedElements.length; print++) {
+                        createRecipeDiv(selectedElements[print]);
+                    }
+                    return ;
+                case "blue":
+                    if (searchByIngredients(text, s) === 1) {
+                        if (!newSelectedElements.includes(selectedElements[s])) {
+                            newSelectedElements.push(selectedElements[s]);
+                        }
+                    }
+                    break;
+                case "green":
+                    if (searchByAppliance(text, s) === 1) {
+                        if (!newSelectedElements.includes(selectedElements[s])) {
+                            newSelectedElements.push(selectedElements[s]);
+                        }
+                    }
+                    break;
+                case "red":
+                    if (searchByUstensils(text, s) === 1) {
+                        if (!newSelectedElements.includes(selectedElements[s])) {
+                            newSelectedElements.push(selectedElements[s]);
+                        }
+                    }
+            }
+            break;
         }
-    }
-    if (newSelectedElements.length != 0){
-        console.log( "new selected : "+newSelectedElements);
-        selectedElements = newSelectedElements;
+        if (newSelectedElements.length != 0) {
+            console.log("new selected : " + newSelectedElements);
+            selectedElements = newSelectedElements;
+        } else {
+            for(let q=0; q<recipes.length;q++){
+                createRecipeDiv(recipes[q]);
+            }
+            return;
+        }
     }
     console.log(selectedElements);
     for (let print = 0; print < selectedElements.length; print++) {
