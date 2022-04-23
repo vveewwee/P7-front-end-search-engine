@@ -117,14 +117,21 @@ body{
 
 .blue{
     background-color: rgb(42, 114, 248);
+    color:white;
 }
 .red{
     background-color: rgb(247, 77, 47);
+    color:white;
 }
 .green{
     background-color: rgb(72, 202, 159);
+    color:white;
 }
 
+.gray{
+    background-color: rgb(233, 233, 230);
+    color: #808080;
+}
 .section_recipes{
     display: flex;
     flex-flow: row wrap;
@@ -193,7 +200,6 @@ body{
     justify-content: space-around;
     align-items: center;
     width:fit-content;
-    color:white;
     font-family: Arial, Helvetica, sans-serif;
     padding:10px;
     margin:2%;

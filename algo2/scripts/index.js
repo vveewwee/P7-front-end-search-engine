@@ -436,7 +436,8 @@ function populateTags(text, color) {
             });
         }
         else {
-            filterRecipes();
+            removedTagfilterRecipes();
+            return ;
         }
     };
     filterRecipes();
@@ -545,20 +546,63 @@ function filterRecipes() {
         });
         if (newSelectedElements.length != 0) {
             console.log(newSelectedElements);
-            selectedElements = newSelectedElements;
-        } else {
-            alert("Sorry, no match was found, but here are some ideas");
-            recipes.forEach((recipe) => {
-                createRecipeDiv(recipe);
-            });
-            return;
-        }
+            selectedElements = [...newSelectedElements];
+        } 
     }
     console.log(selectedElements);
     selectedElements.forEach((selectedElement) => {
         createRecipeDiv(selectedElement);
     });
 };
+
+
+function removedTagfilterRecipes(){
+    selectedElements = [];
+    if (tagArray.length == 1){
+        filterRecipes();
+        return ;
+    }
+    recipes.forEach((recipe)=>{
+        let elementFound = 0;
+        tagArray.forEach((tag)=> {
+            let text = tag.text.toLowerCase();
+            let color = tag.color;
+            switch (color){
+                case "gray":
+                    recipeSearch(text);
+                    break;
+                case "blue":
+                    recipe.ingredients.forEach((ingredient) => {
+                        if (ingredient.ingredient.toLowerCase().includes(text)) {
+                            elementFound += 1;
+                            }
+                    });
+                    break;
+                case "green":
+                    if (recipe.appliance.toLowerCase().includes(text)){
+                        elementFound += 1;
+                    }
+                    break;
+                case "red":
+                    recipe.ustensils.forEach((ustensil) => {
+                        if (ustensil.toLowerCase().includes(text)) {
+                           elementFound += 1;
+                        }
+                    });
+                    break;
+            }
+        });
+        console.log("elementFound = " + elementFound + " //tagArray: " + tagArray.length);
+        if (elementFound === tagArray.length){
+            if (!selectedElements.includes(recipe)) {
+                selectedElements.push(recipe);
+            }
+        }
+    });
+    selectedElements.forEach((recipe)=>{
+        createRecipeDiv(recipe);
+    });
+}
 
 function searchByIngredients(tag, s) {
     for (var s2 = 0; s2 < selectedElements[s].ingredients.length; s2++) {
@@ -600,3 +644,8 @@ const init = async () => {
 window.onload = () => {
     init(); 
 };
+
+
+
+/*           
+*/
