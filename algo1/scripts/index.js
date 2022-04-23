@@ -471,7 +471,8 @@ function populateTags(text,color)
             }
             else
             {
-			    filterRecipes();
+			    removeTagfilterRecipes();
+                return;
             }
 	};
 	filterRecipes();
@@ -595,6 +596,56 @@ function filterRecipes() {
     for (let print = 0; print < selectedElements.length; print++) {
         createRecipeDiv(selectedElements[print]);
     }
+};
+
+
+function removeTagfilterRecipes() {
+    selectedElements = [];
+    if (tagArray.length == 1) {
+        filterRecipes();
+        return;
+    }
+    for (var i = 0; i < recipes.length; i++) {
+        let elementFound = 0;
+        for (var e = 0; e < tagArray.length; e++) {
+            let text = tagArray[e].text.toLowerCase();
+            let color = tagArray[e].color;
+            switch (color) {
+                case "gray":
+                    recipeSearch(text);
+                    break;
+                case "blue":
+                    for (var i2 = 0; i2 < recipes[i].ingredients.length; i2++) {
+                        if (recipes[i].ingredients[i2].ingredient.toLowerCase().includes(text)) {
+                            elementFound += 1;
+                        }
+                    }
+                    break;
+                case "green":
+                    if (recipes[i].appliance.toLowerCase().includes(text)) {
+                        elementFound += 1;
+                    }
+                    break;
+                case "red":
+                    for (var i3 = 0; i3 < recipes[i].ustensils.length; i3++) {
+                        if (recipes[i].ustensils[i3].ustensil.toLowerCase().includes(text)) {
+                            elementFound += 1;
+                        }
+                    };
+                    break;
+            }
+
+        }
+        console.log("elementFound = " + elementFound + " //tagArray: " + tagArray.length);
+        if (elementFound === tagArray.length) {
+            if (!selectedElements.includes(recipes[i])) {
+                selectedElements.push(recipes[i]);
+            }
+        }
+    }
+    for (var a = 0; a < selectedElements.length; a++) {
+        createRecipeDiv(recipes[a]);
+    };
 };
 
 function searchByIngredients(tag,s){

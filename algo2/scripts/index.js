@@ -602,7 +602,7 @@ function removedTagfilterRecipes(){
     selectedElements.forEach((recipe)=>{
         createRecipeDiv(recipe);
     });
-}
+};
 
 function searchByIngredients(tag, s) {
     for (var s2 = 0; s2 < selectedElements[s].ingredients.length; s2++) {
