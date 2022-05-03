@@ -257,7 +257,7 @@ function createRecipeDiv(e){
   
     let recipeTime = document.createElement("span");
     recipeTime.style.fontWeight = "600";
-    recipeTime.style.fontSize = "1.4rem";
+    recipeTime.style.fontSize = "0.8rem";
     recipeTime.style.paddingLeft = "20px";
     recipeTime.innerText = e.time + " min";
     firstLine.appendChild(timeIcon);
@@ -510,6 +510,7 @@ function filterRecipes() {
             });
         });
     } else {
+        let newSelectedElements = [];
         selectedElements.forEach((element) => {
             var k = tagArray.length - 1;
             let text = tagArray[k].text.toLowerCase();
@@ -547,9 +548,12 @@ function filterRecipes() {
         if (newSelectedElements.length != 0) {
             console.log(newSelectedElements);
             selectedElements = [...newSelectedElements];
-        } 
+        } else if (newSelectedElements.length === 0){
+            selectedElements = [];
+            alert("No match found");
+            return ;
+        }
     }
-    console.log(selectedElements);
     selectedElements.forEach((selectedElement) => {
         createRecipeDiv(selectedElement);
     });
@@ -592,8 +596,9 @@ function removedTagfilterRecipes(){
                     break;
             }
         });
-        console.log("elementFound = " + elementFound + " //tagArray: " + tagArray.length);
+        console.log(elementFound ,tagArray.length);
         if (elementFound === tagArray.length){
+            console.log(recipe);
             if (!selectedElements.includes(recipe)) {
                 selectedElements.push(recipe);
             }
