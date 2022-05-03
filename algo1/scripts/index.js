@@ -281,7 +281,7 @@ function createRecipeDiv(e){
   
     let recipeTime = document.createElement("span");
     recipeTime.style.fontWeight = "600";
-    recipeTime.style.fontSize = "1.4rem";
+    recipeTime.style.fontSize = "0.8rem";
     recipeTime.style.paddingLeft = "20px";
     recipeTime.innerText = e.time + " min";
     firstLine.appendChild(timeIcon);
@@ -371,7 +371,7 @@ function GetIngredientFilterValue(e) {
                 }
             }
         } else {
-            console.log("not enough arguments");
+//            console.log("not enough arguments");
         }
     }
 };
@@ -386,7 +386,7 @@ function GetApplianceFilterValue(e) {
             }
         }
     } else {
-        console.log("not enough arguments");
+ //       console.log("not enough arguments");
     }
 };
 
@@ -401,7 +401,7 @@ function GetUstensilFilterValue(e) {
             }
         }
     } else {
-        console.log("not enough arguments");
+  //      console.log("not enough arguments");
     }
 }; 
 /*-------- Create Key Word Tags --------*/
@@ -504,7 +504,7 @@ function recipeSearch(e){
 
 function filterRecipes() {
     recipeSection.innerHTML = "";
-    let newSelectedElements = [];
+
     if (tagArray.length == 1) {
         selectedElements = [];
         for (let i = 0; i < recipes.length; i++) {
@@ -545,6 +545,8 @@ function filterRecipes() {
             }
         }
     } else {
+        let newSelectedElements = [];
+   //     console.log(selectedElements);
         for (var s = 0; s < selectedElements.length; s++) {
             var k = tagArray.length - 1;
             let text = tagArray[k].text.toLowerCase();
@@ -579,20 +581,22 @@ function filterRecipes() {
                     }
                     break;
             }
-            if (newSelectedElements.length != 0) {
-                console.log("new selected : " + newSelectedElements);
-                selectedElements = newSelectedElements;
-            } else {
-                alert("Sorry, no match was found, but here are some ideas");
-                for (let q = 0; q < recipes.length; q++) {
+            
+        }
+        if (newSelectedElements.length != 0) {
+//            console.log(newSelectedElements);
+            selectedElements = newSelectedElements;
+        } else if (newSelectedElements.length == 0) {
+            selectedElements = [];
+            alert("Sorry, no match was found, but here are some ideas");
+        /*    for (let q = 0; q < recipes.length; q++) {
 
-                    createRecipeDiv(recipes[q]);
-                }
-                return;
-            }
+                createRecipeDiv(recipes[q]);
+            }*/
+            return;
         }
     }
-    console.log(selectedElements);
+//    console.log(selectedElements);
     for (let print = 0; print < selectedElements.length; print++) {
         createRecipeDiv(selectedElements[print]);
     }
@@ -636,15 +640,16 @@ function removeTagfilterRecipes() {
             }
 
         }
-        console.log("elementFound = " + elementFound + " //tagArray: " + tagArray.length);
+//        console.log(elementFound, tagArray.length);
         if (elementFound === tagArray.length) {
+//            console.log(recipes[i]);
             if (!selectedElements.includes(recipes[i])) {
                 selectedElements.push(recipes[i]);
             }
         }
     }
     for (var a = 0; a < selectedElements.length; a++) {
-        createRecipeDiv(recipes[a]);
+        createRecipeDiv(selectedElements[a]);
     };
 };
 
@@ -681,8 +686,8 @@ const init = async () => {
     populateUstensilesList();
     nameElement();
     preparationElement();
-    for (var i = 0; i < recipes.length; i++)
-        createRecipeDiv(recipes[i]);
+//    for (var i = 0; i < recipes.length; i++)
+//        createRecipeDiv(recipes[i]);
 };
 
 /*---- onload, creation of list elements array ---*/
