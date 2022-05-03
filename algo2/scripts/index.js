@@ -456,15 +456,19 @@ function insideIngredients(e, index){
 
 function recipeSearch(e) {
     recipeSection.innerHTML = "";
-    for (var i = 0; i < recipes.length; i++) {
-
-        if (recipes[i].name.toLowerCase().includes(e.toLowerCase()) ||
-            recipes[i].description.toLowerCase().includes(e.toLowerCase()) ||
-            recipes[i].appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, i)) {
-            if (!selectedElements.includes(recipes[i])) {
-                selectedElements.push(recipes[i]);
+    recipes.forEach((recipe) => {
+        if (recipe.name.toLowerCase().includes(e.toLowerCase()) ||
+            recipe.description.toLowerCase().includes(e.toLowerCase()) ||
+            recipe.appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, indexOf(recipe))) {
+            if (!selectedElements.includes(recipe)) {
+                selectedElements.push(recipe);
             }
         }
+
+    });
+    for (var i = 0; i < recipes.length; i++) {
+
+        
     }
 };
 
@@ -518,9 +522,9 @@ function filterRecipes() {
             switch (color) {
                 case "gray":
                     recipeSearch(text);
-                    for (let print = 0; print < selectedElements.length; print++) {
-                        createRecipeDiv(selectedElements[print]);
-                    }
+                    selectedElements.forEach((element) =>{
+                        createRecipeDiv(element);
+                    });
                     return;
                 case "blue":
                     if (searchByIngredients(text, selectedElements.indexOf(element)) === 1) {
@@ -640,8 +644,8 @@ const init = async () => {
     populateUstensilesList();
     nameElement();
     preparationElement();
-    for (var i = 0; i < recipes.length; i++)
-        createRecipeDiv(recipes[i]);
+//    for (var i = 0; i < recipes.length; i++)
+ //       createRecipeDiv(recipes[i]);
 };
 
 /*---- onload, creation of list elements array ---*/
