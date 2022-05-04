@@ -457,24 +457,19 @@ function insideIngredients(e, index){
 function recipeSearch(e) {
     recipeSection.innerHTML = "";
     recipes.forEach((recipe) => {
+        let index = recipes.indexOf(recipe);
         if (recipe.name.toLowerCase().includes(e.toLowerCase()) ||
             recipe.description.toLowerCase().includes(e.toLowerCase()) ||
-            recipe.appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, indexOf(recipe))) {
+            recipe.appliance.toLowerCase().includes(e.toLowerCase()) || insideIngredients(e, index)) {
             if (!selectedElements.includes(recipe)) {
                 selectedElements.push(recipe);
             }
         }
-
     });
-    for (var i = 0; i < recipes.length; i++) {
-
-        
-    }
 };
 
 function filterRecipes() {
     recipeSection.innerHTML = "";
-    let newSelectedElements = [];
     if (tagArray.length == 1) {
         selectedElements = [];
         recipes.forEach((recipe) => {
@@ -522,10 +517,12 @@ function filterRecipes() {
             switch (color) {
                 case "gray":
                     recipeSearch(text);
-                    selectedElements.forEach((element) =>{
-                        createRecipeDiv(element);
-                    });
-                    return;
+                    selectedElements.forEach((selection) => {
+                        if (!newSelectedElements.includes(selection)) {
+                            newSelectedElements.push(selection);
+                            }
+                        });
+                    break;
                 case "blue":
                     if (searchByIngredients(text, selectedElements.indexOf(element)) === 1) {
                         if (!newSelectedElements.includes(element)) {
@@ -552,7 +549,7 @@ function filterRecipes() {
         if (newSelectedElements.length != 0) {
             console.log(newSelectedElements);
             selectedElements = [...newSelectedElements];
-        } else if (newSelectedElements.length === 0){
+        } else if (newSelectedElements.length == 0){
             selectedElements = [];
             alert("No match found");
             return ;
@@ -578,6 +575,7 @@ function removedTagfilterRecipes(){
             switch (color){
                 case "gray":
                     recipeSearch(text);
+                    elementFound += 1;
                     break;
                 case "blue":
                     recipe.ingredients.forEach((ingredient) => {
@@ -644,17 +642,12 @@ const init = async () => {
     populateUstensilesList();
     nameElement();
     preparationElement();
-//    for (var i = 0; i < recipes.length; i++)
- //       createRecipeDiv(recipes[i]);
-};
-
+//    recipes.forEach((recipe) => {
+//        createRecipeDiv(recipe);
+//    });    
+}
 /*---- onload, creation of list elements array ---*/
 
 window.onload = () => {
     init(); 
 };
-
-
-
-/*           
-*/

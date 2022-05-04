@@ -546,8 +546,8 @@ function filterRecipes() {
         }
     } else {
         let newSelectedElements = [];
-   //     console.log(selectedElements);
-        for (var s = 0; s < selectedElements.length; s++) {
+        for (var s = 0; s < selectedElements.length; s++)
+        {
             var k = tagArray.length - 1;
             let text = tagArray[k].text.toLowerCase();
             let color = tagArray[k].color;
@@ -555,10 +555,12 @@ function filterRecipes() {
             switch (color) {
                 case "gray":
                     recipeSearch(text);
-                    for (let print = 0; print < selectedElements.length; print++) {
-                        createRecipeDiv(selectedElements[print]);
+                    for (let a= 0; a < selectedElements.length; a++) {
+                        if (!newSelectedElements.includes(selectedElements[a])) {
+                            newSelectedElements.push(selectedElements[a]);
+                        }
                     }
-                    return;
+                    break;
                 case "blue":
                     if (searchByIngredients(text, s) === 1) {
                         if (!newSelectedElements.includes(selectedElements[s])) {
@@ -584,19 +586,14 @@ function filterRecipes() {
             
         }
         if (newSelectedElements.length != 0) {
-//            console.log(newSelectedElements);
             selectedElements = newSelectedElements;
+            console.log(selectedElements);
         } else if (newSelectedElements.length == 0) {
             selectedElements = [];
             alert("Sorry, no match was found, but here are some ideas");
-        /*    for (let q = 0; q < recipes.length; q++) {
-
-                createRecipeDiv(recipes[q]);
-            }*/
             return;
         }
     }
-//    console.log(selectedElements);
     for (let print = 0; print < selectedElements.length; print++) {
         createRecipeDiv(selectedElements[print]);
     }
