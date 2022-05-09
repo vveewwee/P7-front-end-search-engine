@@ -6,7 +6,7 @@ let ingredientArray = [];
 
 const ingredientElements = () => {
     ingredientArray = [];
-    for (var i = 0; i < selectedElements.length; i++) {
+    for (var i = 0, n = selectedElements.length; i < n; i++) {
         ingredientSearch = selectedElements[i].ingredients;
         for (var i2 = 0; i2 < ingredientSearch.length; i2++) {
             let ingredientProducts = ingredientSearch[i2].ingredient.toLowerCase();
@@ -23,7 +23,7 @@ let applianceArray = [];
 
 const applianceElements = () => {
     applianceArray = [];
-    for (var i = 0; i < selectedElements.length; i++) {
+    for (var i = 0, n = selectedElements.length; i < n; i++) {
         let applianceProducts = selectedElements[i].appliance.toLowerCase();
         if (applianceArray.includes(applianceProducts)){
             break;
@@ -39,7 +39,7 @@ let ustensilArray = [];
 
 const ustensilesElements = () => {
     ustensilArray = [];
-    for (var i = 0; i < selectedElements.length; i++) {
+    for (var i = 0, n = selectedElements.length; i < n; i++) {
         ustensileSearch = selectedElements[i].ustensils;
         for (var i2 = 0; i2 < ustensileSearch.length; i2++) {
             let ustensileProduct = ustensileSearch[i2].toLowerCase();
@@ -537,6 +537,7 @@ function displaySelectedRecipes(){
 
 function removeTagfilterRecipes(){
     selectedElements = [...recipes];
+    recipeSection.innerHTML = "";
     const newElements = [];
 
     selectedElements.forEach((recipe)=>{
@@ -544,29 +545,31 @@ function removeTagfilterRecipes(){
         tagArray.forEach((tag)=> {
             let text = tag.text.toLowerCase();
             let color = tag.color;
-            switch (color){
+            switch (color) {
                 case "gray":
                     if (recipeSearch(text, selectedElements.indexOf(recipe)) === 1);
-                        elementFound += 1;
+                    elementFound += 1;
                     break;
                 case "blue":
-                    recipe.ingredients.forEach((ingredient) => {
-                        if (ingredient.ingredient.toLowerCase().includes(text)) {
+                    for (var i = 0, n = recipe.ingredients.length; i < n; i++) {
+                        if (recipe.ingredients[i].ingredient.toLowerCase().includes(text)) {
                             elementFound += 1;
-                            }
-                    });
+                            break;
+                        }
+                    }
                     break;
                 case "green":
-                    if (recipe.appliance.toLowerCase().includes(text)){
+                    if (recipe.appliance.toLowerCase().includes(text)) {
                         elementFound += 1;
                     }
                     break;
                 case "red":
-                    recipe.ustensils.forEach((ustensil) => {
-                        if (ustensil.toLowerCase().includes(text)) {
-                           elementFound += 1;
+                    for (var k = 0, j = recipe.ustensils.length; k < j; k++) {
+                        if (recipe.ustensils[k].toLowerCase().includes(text)) {
+                            elementFound += 1;
+                            break;
                         }
-                    });
+                    }
                     break;
             }
         });
