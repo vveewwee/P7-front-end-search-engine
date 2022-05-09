@@ -29,6 +29,7 @@ const applianceElements = () => {
             break;
         } else {
             applianceArray.push(applianceProducts);
+        }
     }
 };
 
