@@ -335,8 +335,9 @@ let selectedElements = [];
 
 function GetInsertedValue(e) {
     let insertedValue = document.getElementById("search_input").value.toLowerCase();
-    if (e.code == "Enter") {
-        if (insertedValue.length >= 3) {
+
+    if (insertedValue.length >= 3) {
+        if (e.code == "Enter") {
             if (ingredientArray.toString().toLowerCase().includes(insertedValue) ||
                 applianceArray.toString().toLowerCase().includes(insertedValue) ||
                 ustensilArray.toString().toLowerCase().includes(insertedValue) ||

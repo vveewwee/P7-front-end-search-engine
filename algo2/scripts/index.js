@@ -8,7 +8,7 @@ const ingredientElements = () => {
     ingredientArray = [];
     for (var i = 0, n = selectedElements.length; i < n; i++) {
         ingredientSearch = selectedElements[i].ingredients;
-        for (var i2 = 0; i2 < ingredientSearch.length; i2++) {
+        for (var i2 = 0, n2 = ingredientSearch.length; i2 < n2; i2++) {
             let ingredientProducts = ingredientSearch[i2].ingredient.toLowerCase();
             if (ingredientArray.includes(ingredientProducts))
                 break;
@@ -329,8 +329,9 @@ let selectedElements = [];
 
 function GetInsertedValue(e) {
     let insertedValue = document.getElementById("search_input").value.toLowerCase();
-    if (e.code == "Enter") {
-        if (insertedValue.length >= 3) {
+
+    if (insertedValue.length >= 3) {
+        if (e.code == "Enter") {
             if (ingredientArray.toString().toLowerCase().includes(insertedValue) ||
                 applianceArray.toString().toLowerCase().includes(insertedValue) ||
                 ustensilArray.toString().toLowerCase().includes(insertedValue) ||
