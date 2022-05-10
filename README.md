@@ -25,3 +25,4 @@ note: the usage of break is not allowed in forEach() method, as a result, a :for
 ![JsBench_screenshot](https://user-images.githubusercontent.com/71354759/166900225-0e7fb35a-4a39-4f6c-a495-d7b2c3c33766.png)
 
 ![127 0 0 1_5501_algo2_ (1)](https://user-images.githubusercontent.com/71354759/167274996-652274f8-e315-4315-8646-d08811ad1627.png)
+![Screenshot from 2022-05-10 12-32-34](https://user-images.githubusercontent.com/71354759/167609667-9e349f4f-abcd-4c43-a891-95358ce1a38e.png)
