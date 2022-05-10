@@ -329,7 +329,8 @@ let selectedElements = [];
 
 function GetInsertedValue(e) {
     let insertedValue = document.getElementById("search_input").value.toLowerCase();
-
+    let newselectedElements = [];
+    recipeSection.innerHTML = "";
     if (insertedValue.length >= 3) {
         if (e.code == "Enter") {
             if (ingredientArray.toString().toLowerCase().includes(insertedValue) ||
@@ -337,15 +338,40 @@ function GetInsertedValue(e) {
                 ustensilArray.toString().toLowerCase().includes(insertedValue) ||
                 nameArray.toString().toLowerCase().includes(insertedValue) ||
                 preparationArray.toString().toLowerCase().includes(insertedValue)) {
-                populateTags(insertedValue, "gray");
-                document.getElementById("search_input").value = "";
-            }
-            else {
+                selectedElements.forEach((element) => {
+                    if (mainSearch(element, insertedValue, selectedElements.indexOf(element)) === 1 &&
+                        !newselectedElements.includes(element)) {
+                        newselectedElements.push(element);
+                    }
+                });
+            } else {
                 alert("element not included in recipes");
             }
+            console.log(newselectedElements);
+            selectedElements = [];
+            selectedElements = newselectedElements;
         }
+        displaySelectedRecipes();
+        // update list of options
+        ingredientElements();
+        populateIngredientList(ingredientArray);
+        applianceElements();
+        populateAppliancesList(applianceArray);
+        ustensilesElements();
+        populateUstensilesList(ustensilArray);
+        //document.getElementById("search_input").value = "";
     }
 };
+
+function mainSearch(list, element, index){
+    if (list.name.toLowerCase().includes(element) ||
+    list.description.toLowerCase().includes(element) ||
+    list.appliance.toLowerCase().includes(element) ||
+    insideIngredients(element, index)) {
+        return 1;
+    }
+    return 0;
+}
 
 /*-------- Get Filter Values -----------*/
 
@@ -460,9 +486,10 @@ function populateTags(text, color) {
 
 /*------- Research recipe with ---------*/
 
-function insideIngredients(e, index){
+function insideIngredients(tag, index){
+    tag = tag.toLowerCase();
     for(var i =0;i < selectedElements[index].ingredients.length;i++){
-        if (selectedElements[index].ingredients[i].ingredient.toString().toLowerCase().includes(e.toLowerCase())){
+        if (selectedElements[index].ingredients[i].ingredient.toString().toLowerCase().includes(tag)){
             return 1;
         }
     }

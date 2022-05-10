@@ -335,22 +335,52 @@ let selectedElements = [];
 
 function GetInsertedValue(e) {
     let insertedValue = document.getElementById("search_input").value.toLowerCase();
-
+    let newselectedElements = [];
+    recipeSection.innerHTML = "";
     if (insertedValue.length >= 3) {
-        if (e.code == "Enter") {
+        if (e.code == "Enter")
+        {
             if (ingredientArray.toString().toLowerCase().includes(insertedValue) ||
                 applianceArray.toString().toLowerCase().includes(insertedValue) ||
                 ustensilArray.toString().toLowerCase().includes(insertedValue) ||
                 nameArray.toString().toLowerCase().includes(insertedValue) ||
-                preparationArray.toString().toLowerCase().includes(insertedValue)) {
-                populateTags(insertedValue, "gray");
-                document.getElementById("search_input").value = "";
-            }
-            else {
+                preparationArray.toString().toLowerCase().includes(insertedValue))
+                {
+                    for (var i = 0; i < selectedElements.length; i++)
+                    {
+                        if (mainSearch(selectedElements[i], insertedValue, i) === 1 && 
+                            !newselectedElements.includes(selectedElements[i]))
+                            {
+                                newselectedElements.push(selectedElements[i]);
+                            }
+                    }
+                } else {
                 alert("element not included in recipes");
             }
+            console.log(newselectedElements);
+            selectedElements = [];
+            selectedElements = newselectedElements;
         }
+        displaySelectedRecipes();
+        // update list of options
+        ingredientElements();
+        populateIngredientList(ingredientArray);
+        applianceElements();
+        populateAppliancesList(applianceArray);
+        ustensilesElements();
+        populateUstensilesList(ustensilArray);
+        //document.getElementById("search_input").value = "";
     }
+}
+
+function mainSearch(list, element, index){
+    if (list.name.toLowerCase().includes(element) ||
+    list.description.toLowerCase().includes(element) ||
+    list.appliance.toLowerCase().includes(element) ||
+    insideIngredients(selectedElements, element, index)) {
+        return 1;
+    }
+    return 0;
 }
 
 /*-------- Get Filter Values -----------*/
@@ -466,10 +496,10 @@ function populateTags(text, color) {
 
 /*------- Research recipe with ---------*/
 
-function insideIngredients(e, index){
+function insideIngredients(list, e, index){
 	e = e.toLowerCase();
-    for(var i =0;i < selectedElements[index].ingredients.length;i++){
-        if (selectedElements[index].ingredients[i].ingredient.toLowerCase().includes(e)){
+    for(var i =0;i < list[index].ingredients.length;i++){
+        if (list[index].ingredients[i].ingredient.toLowerCase().includes(e)){
             return 1;
         }
     }
@@ -481,7 +511,7 @@ function recipeSearch(tag, s) {
     if (selectedElements[s].name.toLowerCase().includes(tag) ||
         selectedElements[s].description.toLowerCase().includes(tag) ||
         selectedElements[s].appliance.toLowerCase().includes(tag) ||
-        insideIngredients(tag, s)) {
+        insideIngredients(selectedElements, tag, s)) {
         return 1;
     }
     return 0;
@@ -497,29 +527,22 @@ function filterRecipes() {
 
     for (var s = 0; s < selectedElements.length; s++) {
         switch (color) {
-            case "gray":
-                if (recipeSearch(text, s) === 1) {
-                    if (!newSelectedElements.includes(selectedElements[s])) {
-                        newSelectedElements.push(selectedElements[s]);
-                    }
-                }
-                break;
             case "blue":
-                if (searchByIngredients(text, s) === 1) {
+                if (searchByIngredients(selectedElements,text, s) === 1) {
                     if (!newSelectedElements.includes(selectedElements[s])) {
                         newSelectedElements.push(selectedElements[s]);
                     }
                 }
                 break;
             case "green":
-                if (searchByAppliance(text, s) === 1) {
+                if (searchByAppliance(selectedElements,text, s) === 1) {
                     if (!newSelectedElements.includes(selectedElements[s])) {
                         newSelectedElements.push(selectedElements[s]);
                     }
                 }
                 break;
             case "red":
-                if (searchByUstensils(text, s) === 1) {
+                if (searchByUstensils(selectedElements, text, s) === 1) {
                     if (!newSelectedElements.includes(selectedElements[s])) {
                         newSelectedElements.push(selectedElements[s]);
                     }
@@ -557,11 +580,6 @@ function removeTagfilterRecipes() {
             let text = tagArray[e].text.toLowerCase();
             let color = tagArray[e].color;
             switch (color) {
-                case "gray":
-                    if (recipeSearch(text, i) === 1) {
-                        elementFound++;
-                    }
-                    break;
                 case "blue":
                     for (var i2 = 0; i2 < selectedElements[i].ingredients.length; i2++) {
                         if (selectedElements[i].ingredients[i2].ingredient.toLowerCase().includes(text)) {
@@ -597,23 +615,23 @@ function removeTagfilterRecipes() {
     displaySelectedRecipes();
 };
 
-function searchByIngredients(tag, s) {
-    for (var s2 = 0; s2 < selectedElements[s].ingredients.length; s2++) {
-        if (selectedElements[s].ingredients[s2].ingredient.toLowerCase().includes(tag))
+function searchByIngredients(list,tag, s) {
+    for (var s2 = 0; s2 < list[s].ingredients.length; s2++) {
+        if (list[s].ingredients[s2].ingredient.toLowerCase().includes(tag))
             return 1;
     }
     return 0;
 };
 
-function searchByAppliance(tag, s) {
-    if (selectedElements[s].appliance.toLowerCase().includes(tag))
+function searchByAppliance(list, tag, s) {
+    if (list[s].appliance.toLowerCase().includes(tag))
         return 1;
     return 0;
 };
 
-function searchByUstensils(tag, s) {
-    for (var s2 = 0; s2 < selectedElements[s].ustensils.length; s2++) {
-        if (selectedElements[s].ustensils[s2].toLowerCase().includes(tag))
+function searchByUstensils(list, tag, s) {
+    for (var s2 = 0; s2 < list[s].ustensils.length; s2++) {
+        if (list[s].ustensils[s2].toLowerCase().includes(tag))
             return 1;
     }
     return 0;
